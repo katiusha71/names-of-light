@@ -1,0 +1,211 @@
+[
+  {
+    "id": 1,
+    "name": "Court Cases & Legal Protection",
+    "nameRu": "Судебные процессы и юридическая защита",
+    "description": "Use these codes sequentially before court appearances or legal proceedings. Start with Sweetening Judgment to soften harsh verdicts, then Miracle Making to open impossible doors, Angelic Influences for divine protection, Long-Range Vision for strategic clarity, and Fearless to stand firm under pressure.",
+    "descriptionRu": "Используйте эти коды последовательно перед судебными заседаниями или юридическими процедурами. Начните со Смягчения суда, затем Создание чудес для открытия невозможных дверей, Ангельские влияния для божественной защиты, Дальновидность для стратегической ясности и Бесстрашие, чтобы стоять твёрдо.",
+    "category": "Protection",
+    "categoryRu": "Защита",
+    "codes": [44, 3, 9, 15, 36],
+    "icon": "gavel"
+  },
+  {
+    "id": 2,
+    "name": "Daily Self-Programming",
+    "nameRu": "Ежедневное самопрограммирование",
+    "description": "A daily sequence for aligning your consciousness. Begin with the creative power of the Universe, clear negative thought patterns, find your authentic voice, build perseverance, and attune to your soul's guidance.",
+    "descriptionRu": "Ежедневная последовательность для настройки сознания. Начните с творческой силы Вселенной, очистите негативные мысли, найдите свой подлинный голос, укрепите настойчивость и настройтесь на руководство души.",
+    "category": "Daily Practice",
+    "categoryRu": "Ежедневная практика",
+    "codes": [1, 4, 25, 31, 57],
+    "icon": "self_improvement"
+  },
+  {
+    "id": 3,
+    "name": "Health & Healing",
+    "nameRu": "Здоровье и исцеление",
+    "description": "A healing sequence addressing body, mind, and spirit. Channel healing Light, eradicate illness at its root, break free from limitation, share healing energy outward, and illuminate hidden causes of disease.",
+    "descriptionRu": "Исцеляющая последовательность для тела, разума и духа. Направьте исцеляющий Свет, искорените болезнь у корня, освободитесь от ограничений, поделитесь целительной энергией и осветите скрытые причины болезни.",
+    "category": "Healing",
+    "categoryRu": "Исцеление",
+    "codes": [5, 21, 17, 23, 33],
+    "icon": "healing"
+  },
+  {
+    "id": 4,
+    "name": "Financial Abundance",
+    "nameRu": "Финансовое изобилие",
+    "description": "Open the channels of prosperity. Activate the power of prosperity, restore self-worth to receive abundance, anchor certainty in success, connect personal growth to global transformation, and rise above material gravity.",
+    "descriptionRu": "Откройте каналы процветания. Активируйте силу процветания, восстановите самоценность для получения изобилия, закрепите уверенность в успехе, свяжите личный рост с глобальной трансформацией и поднимитесь над материальной гравитацией.",
+    "category": "Abundance",
+    "categoryRu": "Изобилие",
+    "codes": [45, 41, 46, 47, 8],
+    "icon": "monetization_on"
+  },
+  {
+    "id": 5,
+    "name": "Finding a Soulmate",
+    "nameRu": "Поиск родственной души",
+    "description": "Attract your destined partner. Draw your soul mate near, open your heart to unconditional love, break patterns of toxic attraction, connect to lasting happiness, and build bridges to your beloved.",
+    "descriptionRu": "Притяните предназначенного партнёра. Притяните свою родственную душу, откройте сердце безусловной любви, разорвите паттерны токсичного влечения, соединитесь с настоящим счастьем и постройте мосты к любимому.",
+    "category": "Love",
+    "categoryRu": "Любовь",
+    "codes": [28, 12, 22, 49, 30],
+    "icon": "favorite"
+  },
+  {
+    "id": 6,
+    "name": "Protection from Evil Eye",
+    "nameRu": "Защита от сглаза",
+    "description": "Create a powerful spiritual shield. Activate protection from negative energy, invoke angelic guardians, banish lingering evil, transcend limitations through miracles, and seal with complete spiritual cleansing.",
+    "descriptionRu": "Создайте мощный духовный щит. Активируйте защиту от негативной энергии, призовите ангельских хранителей, изгоните остаточное зло, преодолейте ограничения через чудеса и запечатайте полным духовным очищением.",
+    "category": "Protection",
+    "categoryRu": "Защита",
+    "codes": [10, 9, 11, 3, 72],
+    "icon": "shield"
+  },
+  {
+    "id": 7,
+    "name": "Removing Obstacles",
+    "nameRu": "Устранение препятствий",
+    "description": "Clear the path ahead. Create miracles to transcend limitations, defy the gravity of stuck situations, bring order from chaos, build perseverance to push through, and claim your freedom.",
+    "descriptionRu": "Расчистите путь вперёд. Создайте чудеса для преодоления ограничений, преодолейте гравитацию застоя, наведите порядок из хаоса, укрепите настойчивость и обретите свободу.",
+    "category": "Transformation",
+    "categoryRu": "Трансформация",
+    "codes": [3, 8, 26, 31, 60],
+    "icon": "trending_up"
+  },
+  {
+    "id": 8,
+    "name": "Career & Success",
+    "nameRu": "Карьера и успех",
+    "description": "Accelerate your professional growth. Finish what you start, open doors to prosperity, transform thoughts into action, present yourself in the best light, and anchor unwavering certainty in your path.",
+    "descriptionRu": "Ускорьте профессиональный рост. Доводите начатое до конца, откройте двери к процветанию, превращайте мысли в действия, представьте себя в лучшем свете и закрепите непоколебимую уверенность в своём пути.",
+    "category": "Abundance",
+    "categoryRu": "Изобилие",
+    "codes": [31, 45, 55, 64, 46],
+    "icon": "work"
+  },
+  {
+    "id": 9,
+    "name": "Family Harmony",
+    "nameRu": "Гармония в семье",
+    "description": "Restore peace and unity in your family. Awaken unconditional love, dissolve conflict, build bridges of understanding, remove hatred and resentment, and unite all family members as one.",
+    "descriptionRu": "Восстановите мир и единство в семье. Пробудите безусловную любовь, растворите конфликты, постройте мосты понимания, удалите ненависть и обиды и объедините всех членов семьи.",
+    "category": "Love",
+    "categoryRu": "Любовь",
+    "codes": [12, 14, 30, 29, 48],
+    "icon": "family_restroom"
+  },
+  {
+    "id": 10,
+    "name": "Spiritual Growth",
+    "nameRu": "Духовный рост",
+    "description": "Deepen your spiritual journey. Connect to your soul's DNA, transcend ego, listen to your soul's whisper, complete the circuit of giving and receiving, and purify with spiritual cleansing.",
+    "descriptionRu": "Углубите духовный путь. Соединитесь с ДНК души, преодолейте эго, слушайте шёпот души, замкните цепь отдачи и получения и очиститесь духовным очищением.",
+    "category": "Spiritual",
+    "categoryRu": "Духовное",
+    "codes": [7, 34, 57, 38, 72],
+    "icon": "auto_awesome"
+  },
+  {
+    "id": 11,
+    "name": "Anxiety & Stress Relief",
+    "nameRu": "Снятие тревоги и стресса",
+    "description": "Find calm in the storm. Remove negative thought patterns, lift depression, eradicate fear at its root, neutralize anger, and learn the art of letting go.",
+    "descriptionRu": "Найдите спокойствие в буре. Удалите негативные мысли, снимите депрессию, искорените страх у корня, нейтрализуйте гнев и овладейте искусством отпускания.",
+    "category": "Healing",
+    "categoryRu": "Исцеление",
+    "codes": [4, 16, 36, 56, 58],
+    "icon": "spa"
+  },
+  {
+    "id": 12,
+    "name": "Forgiveness & Letting Go",
+    "nameRu": "Прощение и отпускание",
+    "description": "Release the past and free your soul. Practice letting go, release guilt and shame, dissolve hatred, heal memories, and cultivate deep appreciation for your journey.",
+    "descriptionRu": "Отпустите прошлое и освободите душу. Практикуйте отпускание, освободитесь от вины и стыда, растворите ненависть, исцелите воспоминания и культивируйте глубокую благодарность за свой путь.",
+    "category": "Transformation",
+    "categoryRu": "Трансформация",
+    "codes": [58, 51, 29, 32, 63],
+    "icon": "volunteer_activism"
+  },
+  {
+    "id": 13,
+    "name": "Fertility & Children",
+    "nameRu": "Плодородие и дети",
+    "description": "Open the channels of creation and new life. Awaken fertility on all levels, channel healing energy, create miracles, establish divine communication, and strengthen the spiritual umbilical cord.",
+    "descriptionRu": "Откройте каналы творения и новой жизни. Пробудите плодородие на всех уровнях, направьте целительную энергию, создайте чудеса, установите божественную связь и укрепите духовную пуповину.",
+    "category": "Healing",
+    "categoryRu": "Исцеление",
+    "codes": [18, 5, 3, 19, 59],
+    "icon": "child_friendly"
+  },
+  {
+    "id": 14,
+    "name": "Travel Protection",
+    "nameRu": "Защита в путешествиях",
+    "description": "Safeguard your journeys. Invoke angelic protection, see far ahead for safety, shield from negative energy, bring heaven to earth wherever you go, and flow like water around obstacles.",
+    "descriptionRu": "Обезопасьте свои путешествия. Призовите ангельскую защиту, смотрите далеко вперёд для безопасности, защититесь от негативной энергии, принесите небо на землю, куда бы вы ни шли, и теките как вода вокруг препятствий.",
+    "category": "Protection",
+    "categoryRu": "Защита",
+    "codes": [9, 15, 10, 13, 61],
+    "icon": "flight"
+  },
+  {
+    "id": 15,
+    "name": "Exam & Interview Success",
+    "nameRu": "Успех на экзаменах и собеседованиях",
+    "description": "Prepare for your moment. Present yourself in the best light, speak your truth with confidence, see the big picture, choose the right words, and access foresight for the best outcome.",
+    "descriptionRu": "Подготовьтесь к важному моменту. Представьте себя в лучшем свете, говорите правду с уверенностью, видьте общую картину, выбирайте правильные слова и используйте предвидение для лучшего результата.",
+    "category": "Abundance",
+    "categoryRu": "Изобилие",
+    "codes": [64, 25, 37, 40, 2],
+    "icon": "school"
+  },
+  {
+    "id": 16,
+    "name": "Breaking Bad Habits",
+    "nameRu": "Избавление от вредных привычек",
+    "description": "Free yourself from destructive patterns. Overcome addictions, clear negative thought loops, build perseverance, face your shadow self honestly, and transform thoughts into positive action.",
+    "descriptionRu": "Освободитесь от деструктивных паттернов. Преодолейте зависимости, очистите негативные циклы мыслей, укрепите настойчивость, честно встретьте свою теневую сторону и превратите мысли в позитивные действия.",
+    "category": "Transformation",
+    "categoryRu": "Трансформация",
+    "codes": [20, 4, 31, 33, 55],
+    "icon": "link_off"
+  },
+  {
+    "id": 17,
+    "name": "Dream Interpretation",
+    "nameRu": "Толкование снов",
+    "description": "Unlock the messages of your dreams. Enter the dream state consciously, listen to your soul's whisper, access prophetic foresight, explore parallel dimensions, and reveal concealed meanings.",
+    "descriptionRu": "Раскройте послания своих снов. Войдите в состояние сна осознанно, слушайте шёпот души, получите доступ к пророческому видению, исследуйте параллельные измерения и раскройте скрытые значения.",
+    "category": "Spiritual",
+    "categoryRu": "Духовное",
+    "codes": [6, 57, 2, 71, 42],
+    "icon": "nights_stay"
+  },
+  {
+    "id": 18,
+    "name": "Morning Meditation",
+    "nameRu": "Утренняя медитация",
+    "description": "Start your day aligned with the Light. Connect to the creative source, cultivate deep appreciation, anchor certainty for the day, ignite your passion, and speak your truth with power.",
+    "descriptionRu": "Начните день в единении со Светом. Соединитесь с творческим источником, культивируйте глубокую благодарность, закрепите уверенность на весь день, зажгите страсть и говорите свою правду с силой.",
+    "category": "Daily Practice",
+    "categoryRu": "Ежедневная практика",
+    "codes": [1, 63, 46, 52, 25],
+    "icon": "wb_sunny"
+  },
+  {
+    "id": 19,
+    "name": "Evening Meditation",
+    "nameRu": "Вечерняя медитация",
+    "description": "Close the day with peace and reflection. Listen to your soul's guidance, practice letting go, release guilt from the day, process memories with wisdom, and prepare for sacred dreams.",
+    "descriptionRu": "Завершите день с миром и размышлением. Слушайте руководство души, практикуйте отпускание, освободитесь от дневной вины, обработайте воспоминания с мудростью и подготовьтесь к священным снам.",
+    "category": "Daily Practice",
+    "categoryRu": "Ежедневная практика",
+    "codes": [57, 58, 51, 32, 6],
+    "icon": "bedtime"
+  }
+]
