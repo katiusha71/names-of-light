@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:provider/provider.dart';
 import '../models/code_item.dart';
+import '../providers/codes_provider.dart';
 import '../widgets/glow_painter.dart';
 import '../widgets/hebrew_letter_span.dart';
 
@@ -158,6 +160,7 @@ class _MeditationScreenState extends State<MeditationScreen>
   Widget build(BuildContext context) {
     final isRu = widget.isRussian;
     final item = _currentItem;
+    final color = context.watch<CodesProvider>().getCodeColor(item.id);
 
     return KeyboardListener(
       focusNode: _focusNode,
@@ -207,7 +210,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                       Text(
                         item.getCategory(isRu).toUpperCase(),
                         style: TextStyle(
-                          color: item.color.withAlpha(150),
+                          color: color.withAlpha(150),
                           fontSize: 14,
                           letterSpacing: 3,
                           fontWeight: FontWeight.w500,
@@ -231,7 +234,7 @@ class _MeditationScreenState extends State<MeditationScreen>
                                       CustomPaint(
                                         size: const Size(280, 280),
                                         painter: GlowPainter(
-                                          color: item.color,
+                                          color: color,
                                           opacity: _glowOpacity.value,
                                           radius: _glowRadius.value,
                                         ),
@@ -239,23 +242,23 @@ class _MeditationScreenState extends State<MeditationScreen>
                                       HebrewLetterRow(
                                         letters: item.letters,
                                         fontSize: 80,
-                                        color: item.color,
+                                        color: color,
                                         isRussian: isRu,
                                         shadows: [
                                           Shadow(
-                                            color: item.color,
+                                            color: color,
                                             blurRadius: 10,
                                           ),
                                           Shadow(
-                                            color: item.color.withAlpha(220),
+                                            color: color.withAlpha(220),
                                             blurRadius: 30,
                                           ),
                                           Shadow(
-                                            color: item.color.withAlpha(150),
+                                            color: color.withAlpha(150),
                                             blurRadius: 60,
                                           ),
                                           Shadow(
-                                            color: item.color.withAlpha(80),
+                                            color: color.withAlpha(80),
                                             blurRadius: 100,
                                           ),
                                         ],
@@ -294,11 +297,11 @@ class _MeditationScreenState extends State<MeditationScreen>
                       const SizedBox(height: 30),
                       // Sequence navigation
                       if (_hasSequence) ...[
-                        _buildSequenceNavigation(isRu, item.color),
+                        _buildSequenceNavigation(isRu, color),
                         const SizedBox(height: 20),
                       ],
                       // Audio controls
-                      _buildAudioControls(isRu, item.color),
+                      _buildAudioControls(isRu, color),
                       const SizedBox(height: 24),
                       Text(
                         isRu
@@ -351,10 +354,12 @@ class _MeditationScreenState extends State<MeditationScreen>
 
   Widget _buildSequenceDots() {
     final total = widget.sequenceCodes!.length;
+    final prov = context.read<CodesProvider>();
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: List.generate(total, (i) {
         final code = widget.sequenceCodes![i];
+        final dotColor = prov.getCodeColor(code.id);
         final isActive = i == _currentIndex;
         return GestureDetector(
           onTap: () => _goToCode(i),
@@ -365,9 +370,9 @@ class _MeditationScreenState extends State<MeditationScreen>
             height: isActive ? 10 : 6,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: isActive ? code.color : code.color.withAlpha(60),
+              color: isActive ? dotColor : dotColor.withAlpha(60),
               boxShadow: isActive
-                  ? [BoxShadow(color: code.color.withAlpha(120), blurRadius: 8)]
+                  ? [BoxShadow(color: dotColor.withAlpha(120), blurRadius: 8)]
                   : [],
             ),
           ),

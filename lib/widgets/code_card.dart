@@ -198,6 +198,30 @@ class _CodeCardState extends State<CodeCard> with SingleTickerProviderStateMixin
                           ),
                         ),
                       ),
+                      Positioned(
+                        bottom: 4,
+                        left: 4,
+                        child: GestureDetector(
+                          onTap: _showColorPicker,
+                          child: Container(
+                            width: 16,
+                            height: 16,
+                            decoration: BoxDecoration(
+                              color: color.withAlpha(180),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white.withAlpha(40),
+                                width: 1,
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.palette,
+                              size: 9,
+                              color: Colors.white.withAlpha(120),
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -210,7 +234,7 @@ class _CodeCardState extends State<CodeCard> with SingleTickerProviderStateMixin
   }
 }
 
-class _ColorPickerSheet extends StatelessWidget {
+class _ColorPickerSheet extends StatefulWidget {
   final Color currentColor;
   final Color defaultColor;
   final bool hasOverride;
@@ -227,28 +251,26 @@ class _ColorPickerSheet extends StatelessWidget {
     required this.onReset,
   });
 
-  static const _palette = [
-    Color(0xFFE57373), // red
-    Color(0xFFFF8A65), // deep orange
-    Color(0xFFFFB74D), // orange
-    Color(0xFFFFD54F), // amber
-    Color(0xFFFFF176), // yellow
-    Color(0xFFAED581), // light green
-    Color(0xFF81C784), // green
-    Color(0xFF4DB6AC), // teal
-    Color(0xFF4FC3F7), // light blue
-    Color(0xFF64B5F6), // blue
-    Color(0xFF7986CB), // indigo
-    Color(0xFF9575CD), // deep purple
-    Color(0xFFBA68C8), // purple
-    Color(0xFFF06292), // pink
-    Color(0xFFE0E0E0), // grey light
-    Color(0xFF90A4AE), // blue grey
-    Color(0xFFFFAB91), // peach
-    Color(0xFFCE93D8), // lilac
-    Color(0xFF80DEEA), // cyan
-    Color(0xFFA5D6A7), // mint
-  ];
+  @override
+  State<_ColorPickerSheet> createState() => _ColorPickerSheetState();
+}
+
+class _ColorPickerSheetState extends State<_ColorPickerSheet> {
+  late double _hue;        // 0–360
+  late double _saturation; // 0–1
+  late double _brightness; // 0–1
+
+  @override
+  void initState() {
+    super.initState();
+    final hsv = HSVColor.fromColor(widget.currentColor);
+    _hue = hsv.hue;
+    _saturation = hsv.saturation;
+    _brightness = hsv.value;
+  }
+
+  Color get _selectedColor =>
+      HSVColor.fromAHSV(1.0, _hue, _saturation, _brightness).toColor();
 
   @override
   Widget build(BuildContext context) {
@@ -257,64 +279,209 @@ class _ColorPickerSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                isRu ? 'Цвет кода' : 'Code color',
+                widget.isRu ? 'Цвет кода' : 'Code color',
                 style: TextStyle(
                   color: Colors.white.withAlpha(200),
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              if (hasOverride)
-                TextButton(
-                  onPressed: onReset,
-                  child: Text(
-                    isRu ? 'Сбросить' : 'Reset',
-                    style: TextStyle(
-                      color: Colors.white.withAlpha(120),
-                      fontSize: 13,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (widget.hasOverride)
+                    TextButton(
+                      onPressed: widget.onReset,
+                      child: Text(
+                        widget.isRu ? 'Сбросить' : 'Reset',
+                        style: TextStyle(
+                          color: Colors.white.withAlpha(120),
+                          fontSize: 13,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 12),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: _palette.map((c) {
-              final isSelected = _colorsClose(c, currentColor);
-              return GestureDetector(
-                onTap: () => onSelect(c),
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: c,
-                    shape: BoxShape.circle,
-                    border: isSelected
-                        ? Border.all(color: Colors.white, width: 3)
-                        : Border.all(color: Colors.white.withAlpha(30)),
-                    boxShadow: isSelected
-                        ? [BoxShadow(color: c.withAlpha(120), blurRadius: 8)]
-                        : [],
+
+          // Saturation-Brightness field
+          SizedBox(
+            height: 180,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return GestureDetector(
+                  onPanDown: (d) => _updateSB(d.localPosition, constraints),
+                  onPanUpdate: (d) => _updateSB(d.localPosition, constraints),
+                  child: Stack(
+                    children: [
+                      // Background: hue color
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: HSVColor.fromAHSV(1, _hue, 1, 1).toColor(),
+                        ),
+                      ),
+                      // White gradient (left to right = saturation)
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          gradient: const LinearGradient(
+                            colors: [Colors.white, Colors.transparent],
+                          ),
+                        ),
+                      ),
+                      // Black gradient (top to bottom = brightness)
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          gradient: const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [Colors.transparent, Colors.black],
+                          ),
+                        ),
+                      ),
+                      // Selector circle
+                      Positioned(
+                        left: _saturation * constraints.maxWidth - 10,
+                        top: (1 - _brightness) * constraints.maxHeight - 10,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withAlpha(100),
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // Hue slider
+          SizedBox(
+            height: 28,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return GestureDetector(
+                  onPanDown: (d) => _updateHue(d.localPosition.dx, constraints.maxWidth),
+                  onPanUpdate: (d) => _updateHue(d.localPosition.dx, constraints.maxWidth),
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 28,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFFFF0000),
+                              Color(0xFFFFFF00),
+                              Color(0xFF00FF00),
+                              Color(0xFF00FFFF),
+                              Color(0xFF0000FF),
+                              Color(0xFFFF00FF),
+                              Color(0xFFFF0000),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: (_hue / 360) * constraints.maxWidth - 10,
+                        top: 4,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: HSVColor.fromAHSV(1, _hue, 1, 1).toColor(),
+                            border: Border.all(color: Colors.white, width: 2),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withAlpha(100),
+                                blurRadius: 4,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Preview + Apply button
+          Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: _selectedColor,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white.withAlpha(60)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: _selectedColor.withAlpha(100),
+                      blurRadius: 12,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => widget.onSelect(_selectedColor),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _selectedColor.withAlpha(60),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                  ),
+                  child: Text(
+                    widget.isRu ? 'Применить' : 'Apply',
+                    style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                 ),
-              );
-            }).toList(),
+              ),
+            ],
           ),
-          const SizedBox(height: 8),
         ],
       ),
     );
   }
 
-  static bool _colorsClose(Color a, Color b) {
-    return (a.r - b.r).abs() < 0.02 &&
-           (a.g - b.g).abs() < 0.02 &&
-           (a.b - b.b).abs() < 0.02;
+  void _updateSB(Offset pos, BoxConstraints constraints) {
+    setState(() {
+      _saturation = (pos.dx / constraints.maxWidth).clamp(0.0, 1.0);
+      _brightness = 1.0 - (pos.dy / constraints.maxHeight).clamp(0.0, 1.0);
+    });
+  }
+
+  void _updateHue(double dx, double width) {
+    setState(() {
+      _hue = ((dx / width) * 360).clamp(0.0, 360.0);
+    });
   }
 }
