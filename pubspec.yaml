@@ -27,6 +27,7 @@ flutter:
   assets:
     - assets/codes.json
     - assets/combinations.json
+    - assets/sephirot.json
     - assets/fonts/
     - assets/audio/
 
