@@ -27,8 +27,42 @@ class NamesOfLightApp extends StatelessWidget {
           ),
           fontFamily: 'NotoSansHebrew',
         ),
-        home: const DashboardScreen(),
+        home: const _AppShell(),
       ),
     );
+  }
+}
+
+/// Wrapper that listens to app lifecycle and refreshes on date change.
+class _AppShell extends StatefulWidget {
+  const _AppShell();
+
+  @override
+  State<_AppShell> createState() => _AppShellState();
+}
+
+class _AppShellState extends State<_AppShell> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      context.read<CodesProvider>().checkDateChange();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const DashboardScreen();
   }
 }

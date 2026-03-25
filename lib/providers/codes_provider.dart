@@ -28,6 +28,7 @@ class CodesProvider extends ChangeNotifier {
   static const _birthDateKey = 'birth_date';
   static const _pairDate1Key = 'pair_date_1';
   static const _pairDate2Key = 'pair_date_2';
+  static const _colorOverridesKey = 'code_color_overrides';
 
   List<CodeItem> _allCodes = [];
   List<CombinationItem> _builtInCombinations = [];
@@ -65,6 +66,12 @@ class CodesProvider extends ChangeNotifier {
   DateTime? _pairDate1;
   DateTime? _pairDate2;
   PairReading? _pairReading;
+
+  // Code color overrides
+  Map<int, Color> _colorOverrides = {};
+
+  // Track last recalculation date for auto-refresh
+  int _lastCalcDay = 0;
 
   List<CodeItem> get allCodes => _allCodes;
   List<CombinationItem> get combinations => [..._builtInCombinations, ..._customCombinations];
@@ -113,6 +120,39 @@ class CodesProvider extends ChangeNotifier {
   PairReading? get pairReading => _pairReading;
 
   double getSephiraWeight(int id) => _sephiraWeights[id] ?? 50.0;
+
+  // Code color overrides
+  Color getCodeColor(int codeId) {
+    return _colorOverrides[codeId] ??
+        _allCodes.firstWhere((c) => c.id == codeId, orElse: () => _allCodes.first).color;
+  }
+
+  bool hasColorOverride(int codeId) => _colorOverrides.containsKey(codeId);
+
+  void setCodeColor(int codeId, Color color) {
+    _colorOverrides[codeId] = color;
+    _saveColorOverrides();
+    notifyListeners();
+  }
+
+  void resetCodeColor(int codeId) {
+    _colorOverrides.remove(codeId);
+    _saveColorOverrides();
+    notifyListeners();
+  }
+
+  /// Call this on app resume / visibility change to refresh if date changed
+  void checkDateChange() {
+    final today = DateTime.now();
+    final dayStamp = today.year * 10000 + today.month * 100 + today.day;
+    if (_lastCalcDay != 0 && _lastCalcDay != dayStamp) {
+      // Date changed — reset check-in and recalculate
+      _todayCheckin = null;
+      recalculate();
+      notifyListeners();
+    }
+    _lastCalcDay = dayStamp;
+  }
 
   List<String> get categories {
     if (_activeSection == DashboardSection.combinations) {
@@ -193,7 +233,10 @@ class CodesProvider extends ChangeNotifier {
       await _loadBirthDate();
       await _loadDailyCheckin();
       await _loadPairDates();
+      await _loadColorOverrides();
       _updateCosmicSummary();
+      final now = DateTime.now();
+      _lastCalcDay = now.year * 10000 + now.month * 100 + now.day;
       recalculate();
     } catch (e) {
       debugPrint('Error loading codes: $e');
@@ -543,6 +586,43 @@ class CodesProvider extends ChangeNotifier {
       }
     } catch (e) {
       debugPrint('Error saving pair dates: $e');
+    }
+  }
+
+  static int _colorToInt(Color c) =>
+      ((c.a * 255).round() << 24) |
+      ((c.r * 255).round() << 16) |
+      ((c.g * 255).round() << 8) |
+      (c.b * 255).round();
+
+  Future<void> _loadColorOverrides() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final str = prefs.getString(_colorOverridesKey);
+      if (str != null) {
+        final Map<String, dynamic> map = json.decode(str);
+        _colorOverrides = map.map(
+          (k, v) => MapEntry(int.parse(k), Color(v as int)),
+        );
+      }
+    } catch (e) {
+      debugPrint('Error loading color overrides: $e');
+    }
+  }
+
+  Future<void> _saveColorOverrides() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (_colorOverrides.isEmpty) {
+        await prefs.remove(_colorOverridesKey);
+      } else {
+        final map = _colorOverrides.map(
+          (k, v) => MapEntry(k.toString(), _colorToInt(v)),
+        );
+        await prefs.setString(_colorOverridesKey, json.encode(map));
+      }
+    } catch (e) {
+      debugPrint('Error saving color overrides: $e');
     }
   }
 

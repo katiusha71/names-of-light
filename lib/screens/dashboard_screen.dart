@@ -22,6 +22,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final _focusNode = FocusNode();
   int _focusedIndex = 0;
 
+  static String _formatDate(bool isRu) {
+    final now = DateTime.now();
+    const monthsEn = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthsRu = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+    final months = isRu ? monthsRu : monthsEn;
+    return '${now.day} ${months[now.month - 1]} ${now.year}';
+  }
+
   @override
   void dispose() {
     _searchController.dispose();
@@ -321,12 +329,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              isRu ? 'Света' : 'of Light',
-              style: TextStyle(
-                color: Colors.white.withAlpha(120),
-                fontSize: 16,
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  isRu ? 'Света' : 'of Light',
+                  style: TextStyle(
+                    color: Colors.white.withAlpha(120),
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  _formatDate(isRu),
+                  style: TextStyle(
+                    color: Colors.white.withAlpha(60),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),
@@ -500,13 +520,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  isRu ? '72 Имени Света' : '72 Names of Light',
-                  style: TextStyle(
-                    color: Colors.white.withAlpha(220),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      isRu ? '72 Имени Света' : '72 Names of Light',
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(220),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      _formatDate(isRu),
+                      style: TextStyle(
+                        color: Colors.white.withAlpha(80),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ),
                 _buildLanguageToggle(provider),
               ],
@@ -588,6 +620,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           isRussian: provider.isRussian,
           onTap: () => _openMeditation(context, item, provider.isRussian),
           onFavoriteToggle: () => provider.toggleFavorite(item.id),
+          provider: provider,
         );
       },
     );
